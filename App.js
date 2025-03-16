@@ -1,15 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import MainNavigator from './components/MainNavigator';
 
 export default function App() {
   return (
     <NavigationContainer>
-      <View style={styles.container}>
-        <Text>한글 가능 여부 테스트</Text>
-        <StatusBar style="auto" />
-      </View>
+      <MainNavigator />
     </NavigationContainer>
   );
 }
