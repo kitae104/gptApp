@@ -2,8 +2,29 @@ import Feather from '@expo/vector-icons/Feather';
 import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewContainer';
 import colors from '../constants/colors';
+import { useCallback, useEffect, useState } from 'react';
+import { makeChatRequest } from '../utils/gptUtils';
+import { addUserMessage, initConversation } from '../utils/conversationHistoryUtil';
 
 export default function ChatScreen() {
+
+  const [messageText, setMessageText] = useState("");
+
+  useEffect(() => {
+    initConversation();
+  }, []);
+
+  const sendMessage = useCallback(async () => {
+    try{
+      addUserMessage(messageText);
+      await makeChatRequest();
+    } catch (error) {
+      console.log(error);
+    }
+
+    setMessageText(""); // 메시지 전송 후 텍스트박스 초기화
+  }, [messageText]);
+
   return (    
     <KeyboardAvoidingViewContainer>
       <View style={styles.container}>
@@ -14,8 +35,10 @@ export default function ChatScreen() {
           <TextInput 
             style={styles.textbox}
             placeholder='메시지를 입력하세요...'
+            onChangeText={(text) => setMessageText(text)}
+            value={messageText}
           />
-          <TouchableOpacity style={styles.sendButton}>
+          <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
             <Feather name="send" size={18} color="black" />
           </TouchableOpacity>
         </View>

@@ -6,3 +6,6 @@
 - npx expo install react-native-screens react-native-safe-area-context
 
 npm install @react-navigation/bottom-tabs
+
+### 링크 제거하기 
+npm unlink gptapp
