@@ -1,10 +1,13 @@
 import Feather from '@expo/vector-icons/Feather';
+import { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import Bubble from '../components/Bubble';
 import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewContainer';
 import colors from '../constants/colors';
-import { useCallback, useEffect, useState } from 'react';
-import { makeChatRequest } from '../utils/gptUtils';
 import { addUserMessage, getConversation, initConversation } from '../utils/conversationHistoryUtil';
+import { makeChatRequest } from '../utils/gptUtils';
+// import { makeChatRequest } from '../utils/llamaUtils';
+
 
 export default function ChatScreen() {
 
@@ -40,7 +43,15 @@ export default function ChatScreen() {
             data={conversation}
             renderItem={(itemData) => {
               const convoItem = itemData.item;
-              return <Text>{convoItem.content}</Text>
+              const { role, content } = convoItem;
+
+              if(role === 'system') return null;
+              
+
+              return <Bubble 
+                  text={content}
+                  type={role}
+                />;
             }}
           />
         </View>
