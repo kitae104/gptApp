@@ -2,6 +2,8 @@ import OpenAI from "openai";
 import { OPENAI_API_KEY } from '@env';
 import { addAssistantMessage, getConversation } from "./conversationHistoryUtil";
 
+console.log('OPENAI_API_KEY : ', OPENAI_API_KEY); // 값이 정상 출력되는지 확인
+
 const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
 });
