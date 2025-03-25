@@ -40,6 +40,7 @@ export default function ChatScreen() {
       <View style={styles.container}>
         <View style={styles.messageContainer}>
           <FlatList 
+            style={styles.flatList}
             data={conversation}
             renderItem={(itemData) => {
               const convoItem = itemData.item;
@@ -94,5 +95,8 @@ const styles = StyleSheet.create({
   },
   messageContainer: {
     flex: 1,
+  },
+  flatList: {
+    marginHorizontal: 15,
   }
 });

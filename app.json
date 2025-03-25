@@ -6,6 +6,9 @@
     "jsEngine": "hermes",
     "experiments": {
       "newArchEnabled": true
-    }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
