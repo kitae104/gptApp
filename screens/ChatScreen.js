@@ -48,7 +48,6 @@ export default function ChatScreen() {
 
               if(role === 'system') return null;
               
-
               return <Bubble 
                   text={content}
                   type={role}
@@ -91,7 +90,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,    
   },
   textbox: {
-    flex: 1
+    flex: 1,
+    fontFamily: 'regular',    
   },
   messageContainer: {
     flex: 1,
