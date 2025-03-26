@@ -1,14 +1,12 @@
-import 'react-native-url-polyfill/auto';
 import { NavigationContainer } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
-import MainNavigator from './components/MainNavigator';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
-import { useCallback } from 'react';
-import { View } from 'react-native';
-import { HeaderButtonsProvider } from "react-navigation-header-buttons";
-
-
+import { useCallback } from "react";
+import { StyleSheet, View } from 'react-native';
+import "react-native-url-polyfill/auto";
+import MainNavigator from './components/MainNavigator';
+import { HeaderButtonsProvider } from 'react-navigation-header-buttons/HeaderButtonsProvider';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,19 +39,21 @@ export default function App() {
     }
   }, [fontsLoaded]);
 
-  if(!fontsLoaded){
+  if (!fontsLoaded) {
     return null;
   }
 
   return (
-    <View style={{ flex: 1}} onLayout={onLayoutRootView}>
+    <View style={ { flex: 1 } } onLayout={ onLayoutRootView }>
       <NavigationContainer>
-        <HeaderButtonsProvider stackType="js">
-          <MainNavigator />
-        </HeaderButtonsProvider>
+        <SafeAreaProvider>
+          <HeaderButtonsProvider stackType="js">
+            <MainNavigator />
+          </HeaderButtonsProvider>
+        </SafeAreaProvider>
       </NavigationContainer>
     </View>
-  );
+);
 }
 
 const styles = StyleSheet.create({

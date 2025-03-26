@@ -3,7 +3,7 @@ let conversation = [];
 export const getConversation = () => conversation;
 
 export const initConversation = () => {
-  addSystemMessage("Your name is Kitae");
+  addSystemMessage("You are a virtual assistant named Kitae");
 }
 
 export const addUserMessage = (messageText) => {
@@ -25,4 +25,9 @@ export const addSystemMessage = (messageText) => {
     role: 'system',
     content: messageText
   })
+}
+
+export const resetConversation = () => {
+  conversation = [];
+  initConversation();
 }

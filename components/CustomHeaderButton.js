@@ -1,6 +1,7 @@
 import { HeaderButton } from "react-navigation-header-buttons";
 import colors from "../constants/colors";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import {FontAwesome} from '@expo/vector-icons';
+import React from 'react';
 
 export default CustomHeaderButton = (props) => {
   return (
@@ -8,6 +9,7 @@ export default CustomHeaderButton = (props) => {
       {...props} 
       IconComponent={FontAwesome} 
       iconSize={23} 
-      color={props.color ?? colors.primary} />
+      color={props.color ?? colors.primary} 
+    />  
   );
 }

@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 import colors from "../constants/colors";
+import loadingGif from "../assets/loading.gif";
 
 export default Bubble = (props) => {
   const { text, type } = props;
@@ -16,9 +17,19 @@ export default Bubble = (props) => {
 
   return (
     <View style={wrapperStyle}>
-      <View style={bubbleStyle}>
-        <Text style={textStyle}>{text}</Text>
-      </View>
+      {
+        text &&
+        <View style={bubbleStyle}>
+          <Text style={textStyle}>{text}</Text>
+        </View>
+      }
+      {
+        type === "loading" &&
+        <Image 
+          source={loadingGif} 
+          style={styles.loadingGif}
+        />
+      }
     </View>
   );
 };
@@ -39,5 +50,8 @@ const styles = StyleSheet.create({
   textStyle: {
     color: "white",
     fontFamily: "boldItalic",
+  },
+  loadingGif: {    
+    height: 100,
   },
 });
