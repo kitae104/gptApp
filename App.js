@@ -6,6 +6,9 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
 import { View } from 'react-native';
+import { HeaderButtonsProvider } from "react-navigation-header-buttons";
+
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -45,7 +48,9 @@ export default function App() {
   return (
     <View style={{ flex: 1}} onLayout={onLayoutRootView}>
       <NavigationContainer>
-        <MainNavigator />
+        <HeaderButtonsProvider stackType="js">
+          <MainNavigator />
+        </HeaderButtonsProvider>
       </NavigationContainer>
     </View>
   );

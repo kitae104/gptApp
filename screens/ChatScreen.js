@@ -1,6 +1,6 @@
 import Feather from '@expo/vector-icons/Feather';
 import { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { Button, FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import Bubble from '../components/Bubble';
 import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewContainer';
 import colors from '../constants/colors';
@@ -8,11 +8,17 @@ import { addUserMessage, getConversation, initConversation } from '../utils/conv
 import { makeChatRequest } from '../utils/gptUtils';
 // import { makeChatRequest } from '../utils/llamaUtils';
 
-
-export default function ChatScreen() {
+export default function ChatScreen(props) {
 
   const [messageText, setMessageText] = useState(""); // 사용자가 입력한 메시지를 저장할 상태
   const [conversation, setConversation] = useState([]); // 대화 내용을 저장할 상태
+
+  useEffect(() => {
+    props.navigation.setOptions({
+      headerRight: () => <Button color="#f00" title="click me" />
+    });
+    
+  }, []);
 
   useEffect(() => {
     initConversation();
@@ -98,5 +104,6 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginHorizontal: 15,
+    paddingVertical: 10,
   }
 });
