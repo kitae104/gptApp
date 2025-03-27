@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DataItem from '../components/DataItem';
+import { personalities } from '../constants/settings';
 
 export default function SettingsScreen(props) {
 
@@ -18,7 +19,10 @@ export default function SettingsScreen(props) {
         subTitle="Change the personality of the model"
         type="link"
         onPress={() => {
-          console.log("Personality Pressed")
+          props.navigation.navigate("DataListScreen", {
+            data: personalities, // DataListScreen으로 전달할 데이터
+            title: "Personality" // DataListScreen에서 사용할 제목
+          }); // DataListScreen으로 이동
         }}
       />
       <DataItem
