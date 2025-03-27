@@ -1,9 +1,10 @@
+import 'react-native-gesture-handler';
+import "react-native-url-polyfill/auto";
 import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from "react";
 import { StyleSheet, View } from 'react-native';
-import "react-native-url-polyfill/auto";
 import MainNavigator from './components/MainNavigator';
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons/HeaderButtonsProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';

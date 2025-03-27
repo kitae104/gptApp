@@ -1,15 +1,16 @@
 import Feather from '@expo/vector-icons/Feather';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import Bubble from '../components/Bubble';
 import CustomHeaderButton from '../components/CustomHeaderButton';
 import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewContainer';
+import Bubble from '../components/Bubble';
 import colors from '../constants/colors';
 import { addUserMessage, getConversation, resetConversation } from '../utils/conversationHistoryUtil';
 import { makeChatRequest } from '../utils/gptUtils';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { Text } from 'react-native';
+import InputContainer from '../components/InputContainer';
 
 export default function ChatScreen(props) {
 
@@ -100,18 +101,13 @@ export default function ChatScreen(props) {
             />
           </View>
         }
-        <View style={styles.inputContainer}>
-          <TextInput 
-            style={styles.textbox}
-            placeholder='메시지를 입력하세요...'
-            onChangeText={(text) => setMessageText(text)}
-            value={messageText}
-          />
-          <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
-            <Feather name="send" size={18} color="white" />
-          </TouchableOpacity>
-        </View>
-      </View>    
+        <InputContainer 
+          onChangeText={(text) => setMessageText(text)}
+          value={messageText}
+          onPress={sendMessage}
+          placeholder='메시지를 입력하세요...'
+        />
+      </View>
     </KeyboardAvoidingViewContainer>
   );
 }
