@@ -1,17 +1,15 @@
-import Feather from '@expo/vector-icons/Feather';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { FlatList, StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import CustomHeaderButton from '../components/CustomHeaderButton';
-import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewContainer';
+import { useSelector } from 'react-redux';
 import Bubble from '../components/Bubble';
+import CustomHeaderButton from '../components/CustomHeaderButton';
+import InputContainer from '../components/InputContainer';
+import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewContainer';
 import colors from '../constants/colors';
 import { addUserMessage, getConversation, resetConversation } from '../utils/conversationHistoryUtil';
 import { makeChatRequest } from '../utils/gptUtils';
-import { Text } from 'react-native';
-import InputContainer from '../components/InputContainer';
-import { useSelector } from 'react-redux';
 
 export default function ChatScreen(props) {
 
