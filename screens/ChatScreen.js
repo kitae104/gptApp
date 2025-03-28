@@ -11,10 +11,14 @@ import { addUserMessage, getConversation, resetConversation } from '../utils/con
 import { makeChatRequest } from '../utils/gptUtils';
 import { Text } from 'react-native';
 import InputContainer from '../components/InputContainer';
+import { useSelector } from 'react-redux';
 
 export default function ChatScreen(props) {
 
   const flatlist = useRef(); // 대화 내용을 표시하는 FlatList 컴포넌트의 ref
+
+  // Redux store에서 personality 상태 가져오기
+  const personality = useSelector(state => state.settings.personality); 
 
   const [messageText, setMessageText] = useState(""); // 사용자가 입력한 메시지를 저장할 상태
   const [conversation, setConversation] = useState([]); // 대화 내용을 저장할 상태
@@ -38,9 +42,9 @@ export default function ChatScreen(props) {
   }, []); 
 
   useEffect(() => {
-    resetConversation();
+    resetConversation(personality);
     setConversation([]);
-  }, []);
+  }, [personality]); // personality가 변경될 때마다 대화 내용 초기화
 
   const sendMessage = useCallback(async () => {
     if(messageText === '') return;

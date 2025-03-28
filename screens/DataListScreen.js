@@ -1,10 +1,11 @@
 import { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, StyleSheet, View } from "react-native";
+import DataItem from "../components/DataItem";
+
 
 export default DataListScreen = (props) => {
 
-  const { data, title } = props.route.params; // DataListScreen으로 전달된 데이터 가져오기
+  const { data, title, onPress, selectedValue } = props.route.params; // DataListScreen으로 전달된 데이터 가져오기
 
   useEffect(() => {
     props.navigation.setOptions({   // 화면 상단에 표시될 제목 설정
@@ -21,6 +22,9 @@ export default DataListScreen = (props) => {
           return (
             <DataItem 
               title={item}
+              onPress={() => onPress(item) } // 업데이트 함수 호출      
+              type="checkbox" // 체크박스 타입으로 설정
+              isChecked = {item == selectedValue}
             />         
           );
         }}

@@ -4,12 +4,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from "react";
-import { StyleSheet, View } from 'react-native';
+import { LogBox, StyleSheet, View } from 'react-native';
 import MainNavigator from './components/MainNavigator';
 import { HeaderButtonsProvider } from 'react-navigation-header-buttons/HeaderButtonsProvider';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
 
-SplashScreen.preventAutoHideAsync();
+// 로그 박스에서 특정 경고 메시지를 무시합니다.
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
+
+SplashScreen.preventAutoHideAsync();  // 스플래시 화면을 자동으로 숨기지 않도록 설정
 
 export default function App() {
 
@@ -45,15 +52,17 @@ export default function App() {
   }
 
   return (
-    <View style={ { flex: 1 } } onLayout={ onLayoutRootView }>
-      <NavigationContainer>
-        <SafeAreaProvider>
-          <HeaderButtonsProvider stackType="js">
-            <MainNavigator />
-          </HeaderButtonsProvider>
-        </SafeAreaProvider>
-      </NavigationContainer>
-    </View>
+    <Provider store={store}>
+      <View style={ { flex: 1 } } onLayout={ onLayoutRootView }>
+        <NavigationContainer>
+          <SafeAreaProvider>
+            <HeaderButtonsProvider stackType="js">
+              <MainNavigator />
+            </HeaderButtonsProvider>
+          </SafeAreaProvider>
+        </NavigationContainer>
+      </View>
+    </Provider>
 );
 }
 

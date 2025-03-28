@@ -1,10 +1,11 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native"
 import colors from "../constants/colors";
 import Entypo from '@expo/vector-icons/Entypo';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default DataItem = (props) => {
 
-  const { title, subTitle, type, onPress } = props;
+  const { title, subTitle, type, onPress, isChecked } = props;
 
   return (
     <TouchableOpacity onPress={onPress}>
@@ -17,6 +18,12 @@ export default DataItem = (props) => {
           type === "link" && 
           <View>
             <Entypo name="chevron-thin-right" size={20} color={colors.gray} />
+          </View>
+        }
+        {
+          type === "checkbox" && 
+          <View style={{ ...styles.iconContainer, ...(isChecked && styles.checkedStyles)}}>
+            <Ionicons name="checkmark" size={20} color="white" />
           </View>
         }
       </View>
@@ -45,4 +52,14 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1
   },
+  iconContainer: {
+    borderWidth: 1,
+    borderRadius: 50,
+    borderColor: colors.lightGrey,
+    backgroundColor: 'white'
+  },
+  checkedStyles: {
+    backgroundColor: colors.primary,
+    borderColor: 'transparent'
+  }
 })
