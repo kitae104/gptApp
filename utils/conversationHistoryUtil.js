@@ -4,7 +4,7 @@ export const getConversation = () => conversation;
 
 // 대화 내용을 초기화하는 함수
 export const initConversation = (personality, mood, responseSize) => {
-  let messageString = `You are a virtual assistant named Kitae.`;
+  let messageString = `모든 대화는 한국어로 해주고 존댓말을 사용해줘요.`;
   
   // 대화의 성격을 설정하는 부분
   if(personality !== 'normal'){
