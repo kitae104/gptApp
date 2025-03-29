@@ -2,6 +2,7 @@ import { ActivityIndicator } from "react-native";
 import MainNavigator from "../components/MainNavigator";
 import { useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { advancedSettings } from "../constants/settings";
 
 export default StartUpScreen = () => {
 
@@ -29,7 +30,15 @@ export default StartUpScreen = () => {
           mood && dispatch(setItem({ key: "mood", value: mood })); // Redux store에 mood 상태 업데이트
 
           const responseSize = await AsyncStorage.getItem("responseSize"); // AsyncStorage에서 responseSize 상태 가져오기
-          responseSize && dispatch(setItem({ key: "responseSize", value: responseSize })); // Redux store에 responseSize 상태 업데이트          
+          responseSize && dispatch(setItem({ key: "responseSize", value: responseSize })); // Redux store에 responseSize 상태 업데이트       
+          
+          // advancedSettings에서 각 항목의 값을 가져와서 Redux store에 업데이트
+          for(let i = 0; i < advancedSettings.length; i++){
+            const optionData = advancedSettings[i]; // advancedSettings에서 항목 데이터 가져오기
+            const id = optionData.id; // 항목 ID
+            const value = await AsyncStorage.getItem(id); // AsyncStorage에서 해당 ID의 값 가져오기
+            value !== null && dispatch(setAdvancedItem({ key: id, value })); // Redux store에 상태 업데이트
+          }          
         } catch (error) {
           console.log(error); // 에러 발생 시 콘솔에 출력
         } finally {

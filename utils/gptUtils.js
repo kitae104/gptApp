@@ -23,20 +23,16 @@ export const makeImageRequest = async (prompt) => {
   throw new Error("응답이 지원되지 않는 형식입니다.");
 }
 
-export const makeChatRequest = async () => {
-  // console.log(getConversation());
-  const response = await openai.chat.completions.create({
+export const makeChatRequest = async (chatOptions) => {
+  console.log({
+    ...chatOptions,
     model: "gpt-3.5-turbo",
-    messages: getConversation(),  // 대화 내용을 가져옴
-    response_format: {
-      "type": "text"
-    },
-    temperature: 1,
-    max_completion_tokens: 2048,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0,
-    store: false
+    messages: getConversation(),  // 대화 내용을 가져옴    
+  });
+  const response = await openai.chat.completions.create({
+    ...chatOptions,
+    model: "gpt-3.5-turbo",
+    messages: getConversation(),  // 대화 내용을 가져옴    
   });
 
   // printUsage(response.usage)

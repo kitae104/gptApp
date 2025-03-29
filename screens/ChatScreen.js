@@ -1,5 +1,5 @@
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { useSelector } from 'react-redux';
@@ -10,6 +10,7 @@ import KeyboardAvoidingViewContainer from '../components/KeyboardAvoidingViewCon
 import colors from '../constants/colors';
 import { addUserMessage, getConversation, resetConversation } from '../utils/conversationHistoryUtil';
 import { makeChatRequest } from '../utils/gptUtils';
+import { advancedSettings } from '../constants/settings';
 
 export default function ChatScreen(props) {
 
@@ -19,10 +20,32 @@ export default function ChatScreen(props) {
   const personality = useSelector(state => state.settings.personality); 
   const mood = useSelector(state => state.settings.mood); 
   const responseSize = useSelector(state => state.settings.responseSize); 
+  const settings = useSelector(state => state.settings.advanced); // 고급 설정 상태 가져오기
 
   const [messageText, setMessageText] = useState(""); // 사용자가 입력한 메시지를 저장할 상태
   const [conversation, setConversation] = useState([]); // 대화 내용을 저장할 상태
   const [loading, setLoading] = useState(false); 
+
+  const chatOptions = useMemo(() => {
+    const options = {};
+
+    for (let i = 0; i < advancedSettings.length; i++) {
+      const settingsData = advancedSettings[i]; // advancedSettings에서 항목 데이터 가져오기
+      const id = settingsData.id; // 항목 ID
+      let value = settings[id]; // Redux store에서 해당 ID의 값 가져오기
+      if(!value) {
+        continue; // 값이 없으면 다음 항목으로 넘어감
+      }
+      // 항목 타입에 따라 숫자 형으로 변환
+      if(settingsData.type === 'number'){
+        value = parseFloat(value); // 숫자형으로 변환
+      } else if(settingsData.type === 'integer'){
+        value = parseInt(value); // 정수형으로 변환
+      }
+      options[id] = value; // options 객체에 추가      
+    }
+    return options; // 최종적으로 설정된 options 객체 반환
+  }, [advancedSettings, settings]); // 대화 옵션을 메모이제이션하여 성능 최적화
 
   useEffect(() => {
     props.navigation.setOptions({
@@ -55,14 +78,14 @@ export default function ChatScreen(props) {
       setMessageText(""); // 메시지 전송 후 텍스트박스 초기화
       setConversation([...getConversation()]); // 대화 내용을 화면에 표시
 
-      await makeChatRequest();  // GPT-3 API를 호출하여 응답을 받아 대화 내용에 추가
+      await makeChatRequest(chatOptions);  // GPT-3 API를 호출하여 응답을 받아 대화 내용에 추가
     } catch (error) {
       console.log(error);
     } finally {
       setConversation([...getConversation()]); // 대화 내용을 화면에 표시
       setLoading(false);
     }
-  }, [messageText]);
+  }, [messageText, chatOptions]); // messageText 또는 chatOptions가 변경될 때마다 sendMessage 함수 업데이트
 
   return (    
     <KeyboardAvoidingViewContainer>
