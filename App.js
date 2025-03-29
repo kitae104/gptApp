@@ -43,9 +43,9 @@ export default function App() {
 
   const onLayoutRootView = useCallback(async () => {
     if(fontsLoaded){
-      await SplashScreen.hideAsync();
+      await SplashScreen.hideAsync(); // 스플래시 화면을 숨깁니다.
     }
-  }, [fontsLoaded]);
+  }, [fontsLoaded]); // fontsLoaded가 true일 때 스플래시 화면을 숨깁니다.
 
   if (!fontsLoaded) {
     return null;

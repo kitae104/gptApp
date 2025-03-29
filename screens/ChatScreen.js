@@ -17,6 +17,8 @@ export default function ChatScreen(props) {
 
   // Redux store에서 personality 상태 가져오기
   const personality = useSelector(state => state.settings.personality); 
+  const mood = useSelector(state => state.settings.mood); 
+  const responseSize = useSelector(state => state.settings.responseSize); 
 
   const [messageText, setMessageText] = useState(""); // 사용자가 입력한 메시지를 저장할 상태
   const [conversation, setConversation] = useState([]); // 대화 내용을 저장할 상태
@@ -30,19 +32,19 @@ export default function ChatScreen(props) {
             title='Clear'
             iconName='trash-o'
             onPress={() => {
-              setConversation([]);
-              resetConversation();
+              setConversation([]);  // 대화 내용을 초기화
+              resetConversation(personality, mood, responseSize); // 대화 내용을 초기화
             }}
           />
         </HeaderButtons>      
     });
     
-  }, []); 
+  }, [personality, mood, responseSize]); // personality 또는 mood가 변경될 때마다 헤더 버튼 업데이트
 
   useEffect(() => {
-    resetConversation(personality);
+    resetConversation(personality, mood, responseSize); // 대화 내용을 초기화
     setConversation([]);
-  }, [personality]); // personality가 변경될 때마다 대화 내용 초기화
+  }, [personality, mood, responseSize]); // personality, mode 또는 responseSize가 변경될 때마다 대화 내용 초기화
 
   const sendMessage = useCallback(async () => {
     if(messageText === '') return;

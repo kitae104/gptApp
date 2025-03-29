@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack"
 import SettingsScreen from "../screens/SettingsScreen";
 import colors from "../constants/colors";
 import DataListScreen from "../screens/DataListScreen";
+import AdvancedSettingsScreen from "../screens/AdvancedSettingsScreen";
 
 const options = {
   headerTitleStyle: {
@@ -22,6 +23,11 @@ export default SettingsNavigator = () => {
     <Stack.Screen 
       name="DataListScreen"
       component={DataListScreen}
+      options={options}
+    />
+    <Stack.Screen 
+      name="AdvancedSettingsScreen"
+      component={AdvancedSettingsScreen}
       options={options}
     />
   </Stack.Navigator>

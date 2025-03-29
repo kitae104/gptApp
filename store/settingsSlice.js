@@ -4,6 +4,11 @@ const settingsSlice = createSlice({
   name: 'settings',         // slice의 이름
   initialState: {           // slice의 초기 상태
     personality: 'normal',  // 기본 personality 설정   
+    mood: 'normal',         // 기본 mood 설정
+    responseSize: 'medium',  // 기본 responseSize 설정
+    advanced: {
+
+    }
   },
   reducers: {               // slice의 상태를 변경하는 reducer 함수들    
     setItem: (state, action) => { // 상태를 변경하는 reducer 함수
